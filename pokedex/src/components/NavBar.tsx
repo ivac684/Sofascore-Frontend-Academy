@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HandleBookmark from './HandleBookmark';
 import { AnimatePresence } from 'framer-motion';
 import * as styledTheme from '../theme/styledTheme';
