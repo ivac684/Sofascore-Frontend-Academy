@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@kuma-ui/core": "^1.5.7",
-    "next": "14.2.3",
+    "date-fns": "^3.6.0",
+    "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "swr": "^2.2.5"
