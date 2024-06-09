@@ -1,9 +1,0 @@
-# Ignore artifacts:
-/build
-coverage
-.next
-dist
-storybook
-node_modules
-
-*.md
