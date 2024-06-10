@@ -9,7 +9,7 @@ import PlayerDetailGrid from '@/components/PlayerDetailGrid'
 import Matches from '@/modules/player-details/Matches'
 import Link from 'next/link'
 import { Tournament } from '@/types/Tournament'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 
 const PlayerDetails = () => {
   const router = useRouter()
@@ -127,7 +127,7 @@ const PlayerDetails = () => {
             {teamData.name}
           </Text>
         </Box>
-        <Box display="flex" flexDirection="row" mt="20px">
+        <Box display="flex" flexDirection="row" mt="20px" justifyContent='space-around'>
           <PlayerDetailGrid>
             <Text color="grey" fontSize="12px" fontWeight="bold" textAlign="center">
               Country

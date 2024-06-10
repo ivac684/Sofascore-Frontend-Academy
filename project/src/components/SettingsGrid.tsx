@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Grid } from '@kuma-ui/core'
 import { ChildrenProps } from '@/types/ChildrenProps'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 
 const SettingsGrid = ({ children }: ChildrenProps) => {
   const isSmallScreen = useScreenSize()

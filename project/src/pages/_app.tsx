@@ -4,11 +4,12 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
 import { useState } from 'react'
-import { Flex } from '@kuma-ui/core'
+import { Flex, Box } from '@kuma-ui/core'
 import { ResponsiveBox } from '@/styles/styledComponents'
 import Header from './header'
 import Tournaments from './tournaments'
 import Footer from './footer'
+import useScreenSize from '@/customHooks/useScreenSize'
 
 //@ts-ignore
 export const fetcher = (...args) =>
@@ -23,6 +24,7 @@ export const fetcher = (...args) =>
 
 export default function App({ Component, pageProps }: AppProps) {
   const [selectedSport, setSelectedSport] = useState<string>('Football')
+  const isSmallScreen = useScreenSize();
 
   const handleSportSelect = (sportName: string) => {
     setSelectedSport(sportName)
@@ -33,13 +35,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeContextProvider>
         <Flex flexDirection="column" minHeight="100vh">
           <Header onSelectSport={handleSportSelect} />
-          <Flex justifyContent="center" maxWidth={'1800px'}>
+          <Flex justifyContent="center" maxWidth='1800px'>
             <ResponsiveBox>
               <Tournaments selectedSport={selectedSport} />
             </ResponsiveBox>
             <Component {...pageProps} selectedSport={selectedSport} />
           </Flex>
-          <Footer />
+          <Box mt='auto'>
+            <Footer />
+          </Box>
         </Flex>
       </ThemeContextProvider>
     </SWRConfig>

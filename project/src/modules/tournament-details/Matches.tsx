@@ -6,7 +6,7 @@ import Grid from '@/components/Grid'
 import IconButton from '@/components/IconButton'
 import BorderArrowBox from '@/components/BorderArrowBox'
 import MatchDetails from '@/pages/match-details/[id]'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 import { groupMatchesByRound } from '@/utils/groupMatchesByRound'
 
 interface MatchesProps {

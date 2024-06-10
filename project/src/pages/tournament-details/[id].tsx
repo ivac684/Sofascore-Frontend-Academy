@@ -9,7 +9,7 @@ import Matches from '../../modules/tournament-details/Matches'
 import Standings from '../../modules/tournament-details/Standings'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 
 const TournamentDetails = () => {
   const router = useRouter()

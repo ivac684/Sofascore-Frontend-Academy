@@ -12,7 +12,7 @@ import TeamInfo from '@/modules/team-details/TeamInfo'
 import { Team } from '@/types/Team'
 import Squad from '@/modules/team-details/Squad'
 import Link from 'next/link'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 
 const TeamDetails = () => {
   const router = useRouter()

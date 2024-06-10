@@ -24,7 +24,6 @@ const Tournaments = ({ selectedSport }: TournamentProps) => {
             <Box
               key={tournament.id}
               width="100%"
-              maxWidth="448px"
               height="56px"
               p="8px 0 8px 16px"
               bg="var(--surface-surface-1)"

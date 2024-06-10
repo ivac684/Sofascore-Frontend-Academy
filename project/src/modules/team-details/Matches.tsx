@@ -6,7 +6,7 @@ import Grid from '@/components/Grid'
 import IconButton from '@/components/IconButton'
 import BorderArrowBox from '@/components/BorderArrowBox'
 import MatchDetails from '@/pages/match-details/[id]'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 import { groupMatchesByRound } from '@/utils/groupMatchesByRound'
 
 interface MatchesProps {
@@ -21,8 +21,7 @@ const Matches = ({ teamId, onEventClick }: MatchesProps) => {
   const isSmallScreen = useScreenSize();
   const [isVisible, setIsVisible] = useState(true);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const { data: lastPageData } = useSWR<Match[]>(`/api/team/${teamId}/events/last/${page}`);
-  const isLastPage = lastPageData && lastPageData.length === 0;
+  const isLastPage = data && data.length === 0;
 
   const groupedByRound = data ? groupMatchesByRound(data) : {};
 
@@ -158,6 +157,11 @@ const Matches = ({ teamId, onEventClick }: MatchesProps) => {
                   {!isSmallScreen && <hr style={{ height: '1px', backgroundColor: 'white' }} />}
                 </Box>
               ))}
+               {isLastPage && (
+                <Box display="flex" justifyContent="center" mt="20px">
+                  <Text fontSize="14px" color="var(--primary-default)" mb='30px'>No more matches</Text>
+                </Box>
+              )}
             </Grid>
           </Box>
         </Box>

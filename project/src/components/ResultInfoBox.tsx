@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box } from '@kuma-ui/core'
 import { ChildrenProps } from '@/types/ChildrenProps'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 
 const ResultInfoBox = ({ children }: ChildrenProps) => {
   const isSmallScreen = useScreenSize()

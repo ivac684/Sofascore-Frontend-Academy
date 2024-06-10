@@ -6,7 +6,7 @@ import { Player } from '@/types/Player';
 import IconButton from '@/components/IconButton';
 import TeamDetailsGrid from '@/components/TeamDetailsGrid';
 import { Match } from '@/types/Match';
-import useScreenSize from '@/utils/useScreenSize';
+import useScreenSize from '@/customHooks/useScreenSize';
 
 interface TeamInfoProps {
   teamId: number;

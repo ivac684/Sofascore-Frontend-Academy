@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import IconButton from '../components/IconButton'; 
 import { Box, Flex, Image } from '@kuma-ui/core';
 import useSWR from 'swr';
@@ -7,6 +7,7 @@ import { useThemeContext } from '@/context/ThemeContext';
 import Link from 'next/link';
 import { TrophyDisplay } from '@/styles/styledComponents';
 import router from 'next/router';
+import useXSScreenSize from '@/customHooks/useXSscreenSize';
 
 interface HeaderProps {
   onSelectSport: (sportName: string) => void;
@@ -16,6 +17,7 @@ const Header = ({ onSelectSport }: HeaderProps) => {
   const [selectedSport, setSelectedSport] = useState<string>('Football');
   const { data, error } = useSWR('/api/sports');
   const { setIsDark, isDark } = useThemeContext();
+  const isXSScreen = useXSScreenSize(); 
 
   const sofascoreIcon = isDark ? '/sofascore-lockup-dark.svg' : '/sofascore-lockup.svg';
   const settingsIcon = isDark ? '/ic-settings-dark.svg' : '/ic-settings.svg';
@@ -41,6 +43,13 @@ const Header = ({ onSelectSport }: HeaderProps) => {
     }
   };
 
+  const displaySportName = (sportName: string) => {
+    if (sportName === 'American Football' && isXSScreen) { 
+      return 'Am. Football';
+    }
+    return sportName;
+  };
+
   return (
     <Box as="header" bg="var(--primary-default)" p={4} height="90px" position="relative">
       <Flex justifyContent="center" alignItems="center" mb="32px">
@@ -59,18 +68,18 @@ const Header = ({ onSelectSport }: HeaderProps) => {
             {data && data.map((sport: Sport) => {
               const sportIcon = isDark ? `/icon-${sport.slug}-dark.svg` : `/icon-${sport.slug}.svg`;
               return (
-                <Link href={`/`} >
-                <Box key={sport.id} as="li" mx={6} cursor="pointer" color="var(--surface-1)" onClick={() => handleSportClick(sport.name)}>
-                  <IconButton
-                    iconSrc={sportIcon}
-                    altText={sport.name}
-                    width={18}
-                    height={18}
-                    onClick={() => handleSportClick(sport.name)}
-                    isSelected={selectedSport === sport.name} 
-                  />
-                  <span style={{ marginLeft: '5px' }}>{sport.name}</span>
-                </Box>
+                <Link href={`/`} key={sport.id}>
+                  <Box as="li" mx={6} cursor="pointer" color="var(--surface-1)" onClick={() => handleSportClick(sport.name)}>
+                    <IconButton
+                      iconSrc={sportIcon}
+                      altText={sport.name}
+                      width={18}
+                      height={18}
+                      onClick={() => handleSportClick(sport.name)}
+                      isSelected={selectedSport === sport.name} 
+                    />
+                    <span style={{ marginLeft: '5px' }}>{displaySportName(sport.name)}</span>
+                  </Box>
                 </Link>
               );
             })}
@@ -79,7 +88,7 @@ const Header = ({ onSelectSport }: HeaderProps) => {
               height="4px" 
               borderRadius="15px" 
               mt="5px" 
-              width={selectedSport === 'American Football' ? '160px' : '100px'}
+              width={selectedSport === 'American Football' && isXSScreen ? '160px' : '100px'}
               position='absolute'
               bottom='-10px'
               transition='left 0.3s ease'

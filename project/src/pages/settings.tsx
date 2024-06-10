@@ -3,7 +3,7 @@ import { Image, Box, Text } from '@kuma-ui/core'
 import SmallSettingsContainer from '@/components/SmallSettingsContainer'
 import { useThemeContext } from '@/context/ThemeContext'
 import SettingsGrid from '@/components/SettingsGrid'
-import useScreenSize from '@/utils/useScreenSize'
+import useScreenSize from '@/customHooks/useScreenSize'
 import { Divider, SettingsText1, SettingsText2 } from '@/styles/styledComponents'
 
 const Settings = () => {
