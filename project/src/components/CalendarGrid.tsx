@@ -39,12 +39,14 @@ const CalendarGrid = ({ children, onDateChange }: CalendarGridProps) => {
     });
   }
 
-  const spacerPosition = differenceInDays(selectedDate, start) * ((100 / 7)  + (20 * 2));
+  const spacerPosition = differenceInDays(selectedDate, start) * (isSmallScreen ? (100 / 7.5) : (100 / 8.2));
+
 
   return (
     <Box
       display="grid"
       width={isSmallScreen ? '100vw' : '50%'}
+      minWidth="350px"
       margin={isSmallScreen ? '0' : '40px'}
       borderRadius={isSmallScreen ? '0' : '16px'}
       bg="var(--surface-1)"
@@ -73,8 +75,7 @@ const CalendarGrid = ({ children, onDateChange }: CalendarGridProps) => {
             textAlign="center"
             cursor="pointer"
             onClick={() => handleDateClick(fullDate)}
-            width="14.28%"
-            position="relative"
+            width="14.28%" // 100% / 7
           >
             <Text fontSize="12px" fontWeight={isToday ? 'bold' : 'normal'}>
               {isToday ? 'Today' : dayOfWeek}
@@ -82,24 +83,22 @@ const CalendarGrid = ({ children, onDateChange }: CalendarGridProps) => {
             <Text fontSize="12px" fontWeight={isSelected ? 'bold' : 'normal'}>
               {date}
             </Text>
-            {isSelected && (
-              <Box
-                position="absolute"
-                bottom="-8px"
-                left="50%"
-                width='50px'
-                transform="translateX(-50%)"
-                height="4px"
-                bg="var(--surface-1)"
-                borderRadius="2px"
-                transition="left 0.3s ease"
-              />
-            )}
           </Box>
         ))}
         <Button onClick={handleNextClick} aria-label="Next day">
           &#9654;
         </Button>
+        <Box
+          position="absolute"
+          bottom="0"
+          left={`${spacerPosition}%`}
+          width="15%"
+          m="0 20px 0 20px"
+          height="4px"
+          bg="var(--surface-1)"
+          borderRadius="2px"
+          transition="left 0.3s ease"
+        />
       </Box>
       <Box p={3}>{children}</Box>
     </Box>

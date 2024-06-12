@@ -88,7 +88,7 @@ const Header = ({ onSelectSport }: HeaderProps) => {
               height="4px" 
               borderRadius="15px" 
               mt="5px" 
-              width={selectedSport === 'American Football' && isXSScreen ? '160px' : '100px'}
+              width={selectedSport === 'American Football' ? '160px' : '100px'}
               position='absolute'
               bottom='-10px'
               transition='left 0.3s ease'
