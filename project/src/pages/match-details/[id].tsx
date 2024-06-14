@@ -15,11 +15,8 @@ interface MatchDetailsProps {
 }
 
 const MatchDetails = ({ eventId }: MatchDetailsProps) => {
-
   const { data, error } = useSWR<Event>(`/api/event/${eventId}`)
-  const { data: incidentsData, error: incidentsError } = useSWR<{ incidents: EventIncident[] }>(
-    `/api/event/${eventId}/incidents`
-  )
+  const { data: incidents, error: incidentsError } = useSWR<EventIncident[]>(`/api/event/${eventId}/incidents`)
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
   useEffect(() => {
@@ -36,7 +33,7 @@ const MatchDetails = ({ eventId }: MatchDetailsProps) => {
   if (!data) {
     return <div>Loading match details...</div>
   }
-  if (!incidentsData) {
+  if (!incidents?.length) {
     return <div>Loading incidents...</div>
   }
 
@@ -104,24 +101,23 @@ const MatchDetails = ({ eventId }: MatchDetailsProps) => {
                     </Text>
                   </Box>
                 )}
-                {data.status === 'finished' && (!incidentsData.incidents || incidentsData.incidents.length === 0) && (
+                {data.status === 'finished' && !incidents?.length && (
                   <Box mt="16px" textAlign="center">
                     <Text fontSize="14px" color="var(--on-surface-lv2)">
                       No incidents reported.
                     </Text>
                   </Box>
                 )}
-                {incidentsData.incidents &&
-                  incidentsData.incidents.map(incident => (
-                    <Box key={incident.id} mt="10px" display="flex">
-                      <Text fontSize="14px" color="var(--on-surface-lv1)" mr="10px">
-                        {incident.time}'
-                      </Text>
-                      <Text fontSize="14px" color="var(--on-surface-lv1)">
-                        {incident.type} - {incident.player.name}
-                      </Text>
-                    </Box>
-                  ))}
+                {incidents?.map(incident => (
+                  <Box key={incident.id} mt="10px" display="flex">
+                    <Text fontSize="14px" color="var(--on-surface-lv1)" mr="10px">
+                      {incident.time}'
+                    </Text>
+                    <Text fontSize="14px" color="var(--on-surface-lv1)">
+                      {incident.type} - {incident.player?.name}
+                    </Text>
+                  </Box>
+                ))}
               </ResultInfoBox>
               {data.status === 'notstarted' && (
                 <Link href={`/tournament-details/${data.tournament.id}`} passHref>
